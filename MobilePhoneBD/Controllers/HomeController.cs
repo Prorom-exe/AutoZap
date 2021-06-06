@@ -27,10 +27,7 @@ namespace MobilePhoneBD.Controllers
 
         public  IActionResult Index(int? catId, int? manId,IndexViewModel model1)
         {
-            if(model1.Count == 0)
-            {
-                model1.Count = 15;
-            }
+            
             var product = db.Products.AsQueryable();
             if (catId != null)
             {
@@ -40,10 +37,19 @@ namespace MobilePhoneBD.Controllers
             {
                 product = product.Where(x => x.ZapId == manId);
             }
+            if(model1.Count == 0)
+            {
+                IndexViewModel model2 = new IndexViewModel
+                {
+                    Products = product.ToList(),
+                    Category = db.Auto.ToList(),
+                };
+                return View(model2);
+            }
             IndexViewModel model = new IndexViewModel
             {
                 Products = product.Take(model1.Count).ToList(),
-                Category = db.Category.ToList(),
+                Category = db.Auto.ToList(),
             };
             return View(model);
         }
@@ -53,7 +59,7 @@ namespace MobilePhoneBD.Controllers
         {
             CreateViewModel model = new CreateViewModel
             {
-                Category = db.Category.ToList()
+                Category = db.Auto.ToList()
             };
             return View(model);
         }
@@ -64,7 +70,7 @@ namespace MobilePhoneBD.Controllers
         {
             CreateViewModel model = new CreateViewModel
             {
-                Category = db.Category.ToList()
+                Category = db.Auto.ToList()
             };
             return View(model);
         }
@@ -76,7 +82,7 @@ namespace MobilePhoneBD.Controllers
             {
                 Name = model.CreateViewModel.NewCat
             };
-            db.Category.Add(cat);
+            db.Auto.Add(cat);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -89,7 +95,7 @@ namespace MobilePhoneBD.Controllers
                Name = model.CreateViewModel.NewMan,
                AutoId = model.CreateViewModel.CatId
            };
-            db.Мanufacturers.Add(man);
+            db.Zap.Add(man);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

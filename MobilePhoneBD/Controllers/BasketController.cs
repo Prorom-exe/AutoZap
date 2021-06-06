@@ -35,7 +35,7 @@ namespace MobilePhoneBD.Controllers
             IndexViewModel model = new IndexViewModel
             {
                 Products = product.ToList(),
-                Category = db.Category.ToList(),
+                Category = db.Auto.ToList(),
             };
             decimal buySum = 0;
             foreach (var t in model.Products)

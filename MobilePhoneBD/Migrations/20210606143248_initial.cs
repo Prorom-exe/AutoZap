@@ -7,7 +7,7 @@ namespace AutoZap.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Auto",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -17,11 +17,11 @@ namespace AutoZap.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Auto", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Мanufacturers",
+                name: "Zap",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -31,13 +31,13 @@ namespace AutoZap.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Мanufacturers", x => x.Id);
+                    table.PrimaryKey("PK_Zap", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Мanufacturers_Category_AutoId",
+                        name: "FK_Zap_Auto_AutoId",
                         column: x => x.AutoId,
-                        principalTable: "Category",
+                        principalTable: "Auto",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,15 +58,15 @@ namespace AutoZap.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Category_AutoId",
+                        name: "FK_Products_Auto_AutoId",
                         column: x => x.AutoId,
-                        principalTable: "Category",
+                        principalTable: "Auto",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Products_Мanufacturers_ZapId",
+                        name: "FK_Products_Zap_ZapId",
                         column: x => x.ZapId,
-                        principalTable: "Мanufacturers",
+                        principalTable: "Zap",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -88,7 +88,7 @@ namespace AutoZap.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -107,8 +107,8 @@ namespace AutoZap.Migrations
                 column: "ZapId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Мanufacturers_AutoId",
-                table: "Мanufacturers",
+                name: "IX_Zap_AutoId",
+                table: "Zap",
                 column: "AutoId");
         }
 
@@ -121,10 +121,10 @@ namespace AutoZap.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Мanufacturers");
+                name: "Zap");
 
             migrationBuilder.DropTable(
-                name: "Category");
+                name: "Auto");
         }
     }
 }

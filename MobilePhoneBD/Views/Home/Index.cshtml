@@ -5,17 +5,18 @@
 <div class="text-center row justify-content-between">
     <form asp-action="Index">
         <select name="catId" onchange="GetMan()" id="cat">
-            <option value="0">Авто</option>
+            <option value="">Авто</option>
             @foreach (var cat in Model.Category)
             {
     <option value="@cat.Id">@cat.Name</option>
 }
         </select>
         <select name="manId" id="man" class="m-2">
-            <option value="0">Деталь</option>
+            <option value="">Деталь</option>
         </select>
         <label class="ml-2">Количество записей</label>
-        <select asp-for="Count"  class="m-2">
+        <select asp-for="Count" class="m-2">
+            <option value="0">Все</option>
             <option value="5">5</option>
             <option value="15">15</option>
             <option value="30">30</option>
@@ -23,9 +24,7 @@
         <button type="submit" class="btn btn-outline-info">Показать</button>
 
     </form>
-    <div>
-        <button class=" btn btn-primary" onclick="location.href='/home/create'">Создать</button>
-    </div>
+   
 </div>
 <div class="card shadow-lg p-3">
     <form asp-action="CreateCat" method="post">

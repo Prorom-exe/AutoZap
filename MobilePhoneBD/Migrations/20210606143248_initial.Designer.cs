@@ -9,7 +9,7 @@ using MobilePhoneBD.Data;
 namespace AutoZap.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210605194145_initial")]
+    [Migration("20210606143248_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,7 +35,7 @@ namespace AutoZap.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Auto");
                 });
 
             modelBuilder.Entity("MobilePhoneBD.Models.Basket", b =>
@@ -112,7 +112,7 @@ namespace AutoZap.Migrations
 
                     b.HasIndex("AutoId");
 
-                    b.ToTable("Мanufacturers");
+                    b.ToTable("Zap");
                 });
 
             modelBuilder.Entity("MobilePhoneBD.Models.Basket", b =>

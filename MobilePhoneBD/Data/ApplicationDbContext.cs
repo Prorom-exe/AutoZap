@@ -10,9 +10,9 @@ namespace MobilePhoneBD.Data
     public class ApplicationDbContext:DbContext
     {
         public DbSet<Products> Products { get; set; }
-        public DbSet<Auto> Category { get; set; }
+        public DbSet<Auto> Auto { get; set; }
         public DbSet<Basket> Baskets { get; set; }
-        public DbSet<Zap> Мanufacturers { get; set; }
+        public DbSet<Zap> Zap { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

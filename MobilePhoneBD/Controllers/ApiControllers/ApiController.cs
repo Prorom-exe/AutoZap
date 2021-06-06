@@ -21,7 +21,7 @@ namespace MobilePhoneBD.Controllers.ApiControllers
         [HttpGet]
         public async Task<IActionResult> GetMan(int catId)
         {
-            var result = db.Мanufacturers.Where(x => x.AutoId == catId).AsQueryable();
+            var result = db.Zap.Where(x => x.AutoId == catId).AsQueryable();
             return Ok(result);
         }
 
