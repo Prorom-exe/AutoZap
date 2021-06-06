@@ -1,0 +1,58 @@
+﻿@model MobilePhoneBD.Models.ViewMode.IndexViewModel
+@{
+    ViewData["Title"] = "корзина";
+}
+
+
+<div class="text-center row justify-content-between">
+    <form asp-action="Index">
+        <select name="catId" onchange="GetMan()" id="cat">
+            <option value="0">Все</option>
+            @foreach (var cat in Model.Category)
+            {
+                <option value="@cat.Id">@cat.Name</option>
+            }
+        </select>
+        <select name="manId" id="man" class="m-2">
+            <option value="0">Все</option>
+        </select>
+        <button type="submit" class="btn btn-info">Показать</button>
+        <label class="ml-2">Сумма покупки:</label>
+        <label id="buySum">@ViewBag.Sum</label>
+    </form>
+    @if (Model.Products.Count != 0)
+    {
+    <form asp-action="Buy">
+        <input type="submit" value="Оформить" class="btn btn-success" />
+    </form>
+    }
+</div>
+<div>
+    <div class="card border shadow-lg m-2">
+        <table class="table">
+            <thead><tr><th>Фото</th><th>Название</th><th>Описание</th><th>Цена</th><th>Количество</th><th>Сумма</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var prod in Model.Products)
+                {
+                    <tr>
+                        <td><img style="width:100px" src="@prod.Link" /></td>
+                        <td>@prod.Name</td>
+                        <td>@prod.Description</td>
+                        <td>@prod.Price</td>
+                        <td>@prod.Quality</td>
+                      <td>@(prod.Quality*prod.Price)</td>
+                        <td>
+                            <form asp-action="Delete" asp-controller="Basket">
+                                <input type="hidden" value="@prod.Id" name="id" />
+                                <input type="submit" class="btn btn-danger" value="Удалить из корзины" />
+                            </form>
+                        </td>
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

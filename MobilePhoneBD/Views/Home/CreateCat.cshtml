@@ -1,0 +1,23 @@
+﻿@model MobilePhoneBD.Models.ViewMode.CreateViewModel
+
+<div class="card shadow-lg p-3">
+    <form asp-action="CreateCat" method="post">
+        <h3>Создание категории</h3>
+        <input asp-for="NewCat" />
+        <input type="submit" value="Создать" class="btn btn-primary"/>
+    </form>
+</div>
+<div class="card shadow-lg p-3 mt-3">
+    <form asp-action="CreateMan" method="post">
+        <h3>Создание производителя для категории</h3>
+        <select asp-for="CatId">
+            @foreach (var t in Model.Category)
+            {
+                <option value="@t.Id">@t.Name</option>
+            }
+        </select>
+        <p>Название производителя</p>
+        <input asp-for="NewMan" />
+        <input type="submit" value="Создать" class="btn btn-primary" />
+    </form>
+</div>

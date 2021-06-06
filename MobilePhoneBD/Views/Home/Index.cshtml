@@ -1,0 +1,87 @@
+﻿@model MobilePhoneBD.Models.ViewMode.IndexViewModel
+@{ ViewData["Title"] = "Home Page"; }
+
+
+<div class="text-center row justify-content-between">
+    <form asp-action="Index">
+        <select name="catId" onchange="GetMan()" id="cat">
+            <option value="0">Авто</option>
+            @foreach (var cat in Model.Category)
+            {
+    <option value="@cat.Id">@cat.Name</option>
+}
+        </select>
+        <select name="manId" id="man" class="m-2">
+            <option value="0">Деталь</option>
+        </select>
+        <label class="ml-2">Количество записей</label>
+        <select asp-for="Count"  class="m-2">
+            <option value="5">5</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+        </select>
+        <button type="submit" class="btn btn-outline-info">Показать</button>
+
+    </form>
+    <div>
+        <button class=" btn btn-primary" onclick="location.href='/home/create'">Создать</button>
+    </div>
+</div>
+<div class="card shadow-lg p-3">
+    <form asp-action="CreateCat" method="post">
+        <h5 style="color:#4cff00">Создание Авто</h5>
+        <input asp-for="CreateViewModel.NewCat" />
+        <input type="submit" value="Создать" class="btn btn-primary" />
+    </form>
+</div>
+<div class="card shadow-lg p-3 mt-3">
+    <form asp-action="CreateMan" method="post">
+        <h5 style="color:#0094ff">Создание запчасти</h5>
+        <select asp-for="CreateViewModel.CatId">
+            @foreach (var t in Model.Category)
+            {
+<option value="@t.Id">@t.Name</option>            }
+        </select>
+        <p>Название производителя</p>
+        <input asp-for="CreateViewModel.NewMan" />
+        <input type="submit" value="Создать" class="btn btn-primary" />
+    </form>
+</div>
+<div>
+
+    @foreach (var prod in Model.Products)
+    {
+    <div class="card border shadow-lg m-2">
+        <table class="table">
+            <thead><tr><th>Фото</th><th>Название</th><th>Описание</th><th>Цена</th><th>Количество</th><th>Добавление</th><th></th><th></th></tr></thead>
+            <tbody>
+                <tr>
+                    <td><img style="width:100px" src="@prod.Link" /></td>
+                    <td>@prod.Name</td>
+                    <td>@prod.Description</td>
+                    <td>@prod.Price</td>
+                    <td>@prod.Quality</td>
+                    <td class="col-6">
+                        <form asp-action="Add" asp-controller="Basket">
+                            <input type="hidden" value="@prod.Id" name="id" />
+                            <input type="number" class="form-control col-5 mt-1" max="@prod.Quality" min="1" name="quantity" />
+                            <input type="submit" class="btn btn-success" value="Добавить" />
+
+                        </form>
+                    </td>
+                    <td><button class="btn btn-info" type="submit" onclick="location.href ='/home/edit?id=@prod.Id'">Изменить</button></td>
+                    <td>
+                        <form asp-action="Delete">
+                            <input type="hidden" value="@prod.Id" name="id" />
+                            <input type="submit" class="btn btn-danger" value="Удалить" />
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        }
+
+    
+</div>
+
